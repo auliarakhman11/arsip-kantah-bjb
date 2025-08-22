@@ -87,11 +87,11 @@
                               <div class="col-md-2">
                                 
                               </div>
-                              <div class="col-md-2">
+                              {{-- <div class="col-md-2">
                                 @if (Auth::id() == 1 || Auth::id() == 4)
                                 <button class="btn btn-sm btn-success" id="btn_selamat_datang"><i class="fas fa-volume-up"></i></button>
                                 @endif
-                              </div>
+                              </div> --}}
                               <div class="col-md-4 col-7 ">
                                 <input type="text" class="form-control form-control-sm" id="search_pengajuan" placeholder="Search..">                                
                               </div>

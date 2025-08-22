@@ -37,8 +37,8 @@ class HomeController extends Controller
             'urgent' => Peminjaman::where('jenis_history', 'pengajuan')->where('urgent', 1)->count(),
             'count' => Peminjaman::where('jenis_history', 'pengajuan')->count(),
             'terima' => $terima->count(),
-            'last_terima' => $dt_terima->user->name,
-            'last_seksi' => $dt_peminjaman->seksi->nm_seksi,
+            'last_terima' => $dt_terima ? $dt_terima->user->name : '',
+            'last_seksi' => $dt_peminjaman ? $dt_peminjaman->seksi->nm_seksi : '',
         ];
         return response()->json($data);
     }

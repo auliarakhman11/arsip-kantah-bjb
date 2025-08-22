@@ -83,6 +83,7 @@
                   <th>Kelurahan</th>
                   <th>Tipe Hak</th>
                   <th>No Hak</th>
+                  <th>Jenis Arsip</th>
                   <th>Keterangan</th>
                   <th>Jenis Warkah</th>
                 </tr>
@@ -136,13 +137,14 @@
         var kelurahan = $(this).attr('kelurahan');
         var hak = $(this).attr('hak');
         var no_hak = $(this).attr('no_hak');
+        var jenis_arsip = $(this).attr('jenis_arsip');
 
         input_id += '<input type="hidden" name="id_peminjaman[]" value="'+id+'">';
 
         if($(this).attr('jenis_arsip') == 'Warkah'){
-          warkah += '<tr><td>'+kecamatan+'</td><td>'+kelurahan+'</td><td>'+hak+'</td><td>'+no_hak+'</td><td><input type="text" class="form-control form-control-sm" name="keterangan2'+id+'"></td><td><label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="208" > 208</label> <label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="Pendaftaran Pertama" > Pendaftaran Pertama</label> <label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="Roya" > Roya</label> <label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="Balik Nama" > Balik Nama</label></td></tr>'
+          warkah += '<tr><td>'+kecamatan+'</td><td>'+kelurahan+'</td><td>'+hak+'</td><td>'+no_hak+'</td><td>'+jenis_arsip+'</td><td><input type="text" class="form-control form-control-sm" name="keterangan2'+id+'"></td><td><label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="208" > 208</label> <label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="Pendaftaran Pertama" > Pendaftaran Pertama</label> <label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="Roya" > Roya</label> <label><input  type="checkbox" name="jenis_warkah'+id+'[]" value="Balik Nama" > Balik Nama</label></td></tr>'
         }else{
-          html += '<tr><td>'+kecamatan+'</td><td>'+kelurahan+'</td><td>'+hak+'</td><td>'+no_hak+'</td><td></td><td></td></tr>';
+          html += '<tr><td>'+kecamatan+'</td><td>'+kelurahan+'</td><td>'+hak+'</td><td>'+no_hak+'</td><td>'+jenis_arsip+'</td><td></td><td></td></tr>';
         }
         
 		  });

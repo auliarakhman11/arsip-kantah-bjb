@@ -734,7 +734,7 @@ $(document).ready(function () {
                   
                   
                 });
-              }, 60000);
+              }, 5000);//diganti
               
               
               $(document).on('click', '.btn-delete-cart', function() {
