@@ -202,7 +202,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <input type="hidden" name="id_peminjaman" class="id_pengembalian">
-                                        <select name="seksi_pelayanan" class="form-control form-control-sm select2bs4"
+                                        <select name="seksi_pelayanan" class="form-control form-control-sm"
                                             required>
                                             <option value="">-Pilih Seksi-</option>
                                             @foreach ($seksi as $d)

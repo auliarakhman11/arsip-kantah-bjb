@@ -139,7 +139,7 @@
   
                               <div class="col-6 mb-2">
                                 <div class="row">
-                                  <div class="col-3"></div>
+                                  
                                     <div class="col-3">
                                       <input class="ml-2 mr-2" type="checkbox" name="jenis_arsip[]" value="BT">
                                       <label  for="">BT</label>
@@ -147,6 +147,10 @@
                                     <div class="col-3">
                                       <input class="ml-2 mr-2" type="checkbox" name="jenis_arsip[]" value="SU">
                                       <label  for="">SU</label>
+                                    </div>
+                                    <div class="col-3">
+                                      <input class="ml-2 mr-2" type="checkbox" name="jenis_arsip[]" value="HT">
+                                      <label  for="">HT</label>
                                     </div>
                                     <div class="col-3">
                                       <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah">

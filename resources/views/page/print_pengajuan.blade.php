@@ -25,6 +25,7 @@
                 <th>No Hak</th>
                 <th>Jenis Arsip</th>                              
                 <th>Keterangan</th>
+                <th>User</th>
                 <th>#</th>
               </tr>
         </thead>
@@ -39,6 +40,7 @@
                 <td>{{ $p->no_hak }}</td>
                 <td>{{ $p->jenis_arsip }}</td>                               
                 <td>{{ $p->keterangan }}</td>
+                <td>{{ $p->user->name }}</td>
                 <td></td>
             </tr>
             @endforeach
