@@ -1,24 +1,28 @@
 @extends('template.master')
 @section('content')
     <style>
-        .blink {
-            animation: blink 1s steps(1, end) infinite;
+        .blink2 {
+            background-color: yellow;
         }
 
-        @keyframes blink {
-            0% {
-                background-color: red;
-                color: white;
-            }
+        /* .blink {
+                                animation: blink 1s steps(1, end) infinite;
+                            } */
 
-            50% {
-                background-color: orange;
-            }
+        /* @keyframes blink {
+                                0% {
+                                    background-color: red;
+                                    color: white;
+                                }
 
-            100% {
-                background-color: yellow;
-            }
-        }
+                                50% {
+                                    background-color: orange;
+                                }
+
+                                100% {
+                                    background-color: yellow;
+                                }
+                            } */
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -202,8 +206,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <input type="hidden" name="id_peminjaman" class="id_pengembalian">
-                                        <select name="seksi_pelayanan" class="form-control form-control-sm"
-                                            required>
+                                        <select name="seksi_pelayanan" class="form-control form-control-sm" required>
                                             <option value="">-Pilih Seksi-</option>
                                             @foreach ($seksi as $d)
                                                 <option value="{{ $d->id }}|{{ $d->seksi->id }}">
@@ -485,7 +488,7 @@
 
                         $("#btn-forward").removeAttr("disabled");
                         $('#btn-forward').html(
-                        '<i class="fas fa-share-square"></i> Forward'); //tombol
+                            '<i class="fas fa-share-square"></i> Forward'); //tombol
                         getPeminjaman();
                         getDashboard();
                         Swal.fire({

@@ -413,16 +413,16 @@ class PeminjamanController extends Controller
 
     public function getPeminjaman()
     {
-        $peminjaman = Peminjaman::query()->select('peminjaman.*')->selectRaw("dt_keterangan.ket,dt_keterangan.waktu,dt_keterangan.hari")
+        $peminjaman = Peminjaman::query()->select('peminjaman.*')->selectRaw("dt_keterangan.ket, CONCAT(dt_keterangan.waktu,' <br>',dt_keterangan.hari,' Hari') as waktu ,dt_keterangan.hari")
             ->leftJoin(
                 DB::raw("(SELECT id, IF(ba_id AND (jenis_arsip = 'BT' OR jenis_arsip = 'SU'), CONCAT( IF((IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) )) IS NOT NULL, IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) ) ,'') ,' (Foto Coppy)'), IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) ) ) as ket , DATE_FORMAT(peminjaman.updated_at, '%d %M %Y %H:%i') as waktu, datediff(current_date(), created_at) as hari FROM peminjaman) dt_keterangan"),
                 'peminjaman.id',
                 '=',
                 'dt_keterangan.id'
             )
-            ->where('user_id',Auth::id())
-            ->orWhere(function($query){
-                $query->where('seksi_id',Auth::user()->seksi_id)->where('jenis_history','forward');
+            ->where('user_id', Auth::id())
+            ->orWhere(function ($query) {
+                $query->where('seksi_id', Auth::user()->seksi_id)->where('jenis_history', 'forward');
             })
             ->whereIn('jenis_history', ['peminjaman', 'pengembalian', 'forward'])->orderBy('jenis_history', 'ASC')->orderBy('id', 'DESC')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak', 'user', 'ba']);
 
@@ -458,7 +458,7 @@ class PeminjamanController extends Controller
             })
 
             ->setRowClass(function ($data) {
-                return $data->hari > 7 ? 'blink' : '';
+                return $data->hari > 7 ? 'blink2' : '';
             })
 
             // ->addColumn('waktu', function($data){   

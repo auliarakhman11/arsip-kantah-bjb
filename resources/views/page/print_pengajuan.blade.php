@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $pengajuan->no_tiket }}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
 <body>
 
-<div class="container-fluid">
-<div class="row">
-    <div class="col-6">
-        <h4>No Tiket : {{ $pengajuan->no_tiket }}</h4>
-    </div>
-    <div class="col-12">
-    <table class="table table-bordered">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <h4>No Tiket : {{ $pengajuan->no_tiket }}</h4>
+            </div>
+            <div class="col-12">
+                {{-- <table class="table table-bordered">
         <thead class="thead-light">
             <tr>
                 <th>No Berkas</th>
@@ -45,12 +48,48 @@
             </tr>
             @endforeach
         </tbody>
-    </table>
-    
+    </table> --}}
+
+                <table class="table table-bordered">
+                    <tbody>
+                        @foreach ($pengajuan->peminjaman as $p)
+                            <tr>
+                                <td><b>Tanggal</b></td>
+                                <td>{{ date('d/m/Y') }}</td>
+                                <td class="text-center"><b>Peminjam</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kelurahan</b></td>
+                                <td>{{ $p->kelurahan->nm_kelurahan }}</td>
+                                <td rowspan="3"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Nomor Hak</b></td>
+                                <td>{{ $p->hak->nm_hak }} {{ $p->no_hak }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Keterangan</b></td>
+                                <td>{{ $p->ket }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Keperluan</b></td>
+                                <td>{{ $p->pelayanan->nm_pelayanan }}</td>
+                                <td class="text-center"><b>{{ $p->user->name }}</b></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
-</div>
-</div>
-    
+
 
 </body>
+
 </html>
