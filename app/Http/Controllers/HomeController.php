@@ -57,6 +57,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function printListPengajuan(Request $request)
+    {
+        return view('page.print_list_pengajuan', [
+            'pengajuan' => ViewPengajuan::where('no_tiket', $request->query('tiket'))->with(['seksi', 'peminjaman', 'peminjaman.kecamatan', 'peminjaman.kelurahan', 'peminjaman.pelayanan', 'peminjaman.hak'])->first(),
+        ]);
+    }
+
     public function printAllPengajuan()
     {
         return view('page.print_all_pengajuan', [

@@ -160,6 +160,8 @@ Route::middleware('auth')->group(function(){
 
     Route::get('print-pengajuan',[HomeController::class,'printPengajuan'])->name('printPengajuan');
 
+    Route::get('printListPengajuan', [HomeController::class,'printListPengajuan'])->name('printListPengajuan');
+
     Route::get('input-pengajuan',[HomeController::class,'inputPengajuan'])->name('inputPengajuan');
 
     Route::post('terima-pengajuan',[HomeController::class,'terimaPengajuan'])->name('terimaPengajuan');
