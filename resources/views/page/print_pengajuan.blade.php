@@ -69,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td><b>Keterangan</b></td>
-                                <td>{{ $p->ket }}</td>
+                                <td>{{ $p->keterangan }}</td>
                             </tr>
                             <tr>
                                 <td><b>Keperluan</b></td>

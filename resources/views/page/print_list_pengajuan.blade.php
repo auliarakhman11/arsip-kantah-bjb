@@ -20,6 +20,7 @@
     <table class="table table-bordered">
         <thead class="thead-light">
             <tr>
+                <th>Tanggal</th>
                 <th>No Berkas</th>
                 <th>Kecamatan</th>
                 <th>Kelurahan</th>
@@ -35,6 +36,7 @@
         <tbody>
             @foreach ($pengajuan->peminjaman as $p)
             <tr>
+                <td>{{ date('d/m/Y') }}</td>
                 <td>{{ $p->no_berkas }}</td>
                 <td>{{ $p->kecamatan->nm_kecamatan }}</td>
                 <td>{{ $p->kelurahan->nm_kelurahan }}</td>
