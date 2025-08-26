@@ -140,21 +140,57 @@
                               <div class="col-6 mb-2">
                                 <div class="row">
                                   
-                                    <div class="col-3">
+                                    <div class="col-2">
                                       <input class="ml-2 mr-2" type="checkbox" name="jenis_arsip[]" value="BT">
                                       <label  for="">BT</label>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                       <input class="ml-2 mr-2" type="checkbox" name="jenis_arsip[]" value="SU">
                                       <label  for="">SU</label>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                       <input class="ml-2 mr-2" type="checkbox" name="jenis_arsip[]" value="HT">
                                       <label  for="">HT</label>
                                     </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Pendaftaran">
+                                      <label  for="" style="font-size: 12px;">Warkah Pendaftaran</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Pemecahan">
+                                      <label  for="" style="font-size: 12px;">Warkah Pemecahan</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Pemisahan">
+                                      <label  for="" style="font-size: 12px;">Warkah Pemisahan</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Penggabungan">
+                                      <label  for="" style="font-size: 11px;">Warkah Penggabungan</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Perubahan Hak">
+                                      <label  for="" style="font-size: 10px;">Warkah Perubahan Hak</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Peralihan Hak">
+                                      <label  for="" style="font-size: 11px;">Warkah Peralihan Hak</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Hapus Hak">
+                                      <label  for="" style="font-size: 11px;">Warkah Hapus Hak</label>
+                                    </div>
+                                    <div class="col-5">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Sertipikat Pengganti">
+                                      <label  for="" style="font-size: 12px;">Warkah Sertipikat Pengganti</label>
+                                    </div>
                                     <div class="col-3">
-                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah">
-                                      <label  for="">Warkah</label>
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah HT">
+                                      <label  for="" style="font-size: 12px;">Warkah HT</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input  type="checkbox" class="ml-2 mr-2" name="jenis_arsip[]" value="Warkah Penataan Batas">
+                                      <label  for="" style="font-size: 10px;">Warkah Penataan Batas</label>
                                     </div>
                                 </div>
                               </div>
