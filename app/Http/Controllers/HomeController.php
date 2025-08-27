@@ -550,4 +550,27 @@ class HomeController extends Controller
 
         $writer->save('php://output');
     }
+
+    public function getListPengajuanTable(Request $request)
+    {
+        return view('page.table_get_list', [
+            'pengajuan' => Peminjaman::where('no_tiket', $request->no_tiket)->where('jenis_history', 'pengajuan')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
+        ])->render();
+    }
+
+    public function printGetListPengajuan(Request $request)
+    {
+        $id_peminjaman = $request->id_peminjaman;
+
+        if ($id_peminjaman) {
+
+            return view('page.printGetListPengajuan', [
+                'pengajuan' => Peminjaman::whereIn('id', $id_peminjaman)->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
+            ]);
+        } else {
+            return view('page.printGetListPengajuan', [
+                'pengajuan' => [],
+            ]);
+        }
+    }
 }

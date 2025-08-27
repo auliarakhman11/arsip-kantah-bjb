@@ -477,6 +477,33 @@
         </div>
     </div>
 
+    <form action="{{ route('printGetListPengajuan') }}" method="get">
+        <div class="modal fade" id="modal_get_list" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title" id="exampleModalLabel">List Pengajuan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="table_get_list">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-batal-pengajuan">Print</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
 @section('script')
     <script>
         <?php if(session('success')): ?>
@@ -1243,6 +1270,30 @@
                 });
 
             });
+
+
+            $(document).on('click', '.btn_get_list', function() {
+                var no_tiket = $(this).attr('no_tiket');
+
+                $('#table_get_list').html(
+                    'Loading... <div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>'
+                );
+
+                $.ajax({
+                    url: "{{ route('getListPengajuanTable') }}",
+                    method: "GET",
+                    data: {
+                        no_tiket: no_tiket
+                    },
+                    success: function(data) {
+                        $('#table_get_list').html(data);
+
+                    }
+
+                });
+
+            });
+
 
         });
     </script>

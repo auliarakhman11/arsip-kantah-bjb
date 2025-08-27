@@ -71,10 +71,13 @@
                             href="{{ route('printPengajuan', ['tiket' => $d->no_tiket]) }}"><i
                                 class="fas fa-print"></i>
                             Bon</a>
-                        <a class="btn btn-xs btn-secondary" target="_blank"
+                        {{-- <a class="btn btn-xs btn-secondary" target="_blank"
                             href="{{ route('printListPengajuan', ['tiket' => $d->no_tiket]) }}"><i
                                 class="fas fa-print"></i>
-                            List</a>
+                            List</a> --}}
+                        <button class="btn btn-xs btn-secondary btn_get_list" type="button" data-toggle="modal"
+                            data-target="#modal_get_list" no_tiket="{{ $d->no_tiket }}"><i class="fas fa-print"></i>
+                            List</button>
                     @endif
 
                 </th>
