@@ -68,8 +68,10 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="float-left">Peminjaman</h4>
-                                        <a href="#modal-print" data-toggle="modal"
-                                            class="btn btn-sm btn-info float-right"><i class="fas fa-print"></i> Print</a>
+                                        <a href="{{ route('printListPengembalian') }}"
+                                            class="btn btn-sm btn-info float-right ml-2" target="_blank"><i class="fas fa-print"></i> List Pengembalian</a>
+                                        {{-- <a href="#modal-print" data-toggle="modal"
+                                            class="btn btn-sm btn-info float-right"><i class="fas fa-print"></i> Print</a> --}}
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">

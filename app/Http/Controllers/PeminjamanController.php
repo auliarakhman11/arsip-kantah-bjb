@@ -421,10 +421,11 @@ class PeminjamanController extends Controller
                 'dt_keterangan.id'
             )
             ->where('user_id', Auth::id())
+            ->whereIn('jenis_history', ['peminjaman', 'pengembalian', 'forward'])
             ->orWhere(function ($query) {
                 $query->where('seksi_id', Auth::user()->seksi_id)->where('jenis_history', 'forward');
             })
-            ->whereIn('jenis_history', ['peminjaman', 'pengembalian', 'forward'])->orderBy('jenis_history', 'ASC')->orderBy('id', 'DESC')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak', 'user', 'ba']);
+            ->orderBy('jenis_history', 'ASC')->orderBy('id', 'DESC')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak', 'user', 'ba']);
 
         return datatables()->of($peminjaman)
             // ->addColumn('search', function($data){
@@ -873,4 +874,12 @@ class PeminjamanController extends Controller
 
         return true;
     }
+
+
+    public function printListPengembalian(){
+        return view('peminjaman.printListPengembalian', [
+                'pengajuan' => Peminjaman::where('user_id', Auth::id())->where('jenis_history','pengembalian')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
+            ]);
+    }
+
 }

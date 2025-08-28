@@ -150,6 +150,8 @@ Route::middleware('auth')->group(function () {
         Route::post('upload-arsip', [PeminjamanController::class, 'uploadArsip'])->name('uploadArsip');
 
         Route::get('hapus-watermark/{id_peminjaman}', [PeminjamanController::class, 'hapusWatermark'])->name('hapusWatermark');
+        
+        Route::get('printListPengembalian', [PeminjamanController::class,'printListPengembalian'])->name('printListPengembalian');
         //endpeminjaman
     });
 
