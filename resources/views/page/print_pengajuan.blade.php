@@ -55,7 +55,7 @@
                         @foreach ($pengajuan->peminjaman as $p)
                             <tr>
                                 <td><b>Tanggal</b></td>
-                                <td>{{ date('d/m/Y') }}</td>
+                                <td>{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
                                 <td class="text-center"><b>Peminjam</b></td>
                             </tr>
                             <tr>
