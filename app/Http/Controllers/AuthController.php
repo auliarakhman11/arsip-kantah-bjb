@@ -11,18 +11,22 @@ class AuthController extends Controller
 {
     public function login_page()
     {
-        return view('auth.login',['title' => 'Login Page']);
+        return view('auth.login', ['title' => 'Login Page']);
     }
 
     public function login(Request $request)
     {
-         $attributes = $request->validate([
+        $attributes = $request->validate([
             'username' => ['required'],
             'password' => ['required']
         ]);
 
-        if(Auth::attempt($attributes,true)){
-            return redirect(RouteServiceProvider::HOME);
+        if (Auth::attempt($attributes, true)) {
+            if (Auth::user()->seksi_id == 4) {
+                return redirect(route('home'));
+            } else {
+                return redirect(route('peminjaman'));
+            }
         }
 
         // $user = User::where('username', $request->username)->first();
@@ -31,7 +35,7 @@ class AuthController extends Controller
         //     if(Hash::check($request->password, $user->password)){
         //         dd($user);
         //         // Auth::login($user);
-                
+
         //         // return redirect(route('dashboard'))->with('success','Selamat datang '. $user->name);
         //     }else{
         //         throw ValidationException::withMessages([
@@ -48,7 +52,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect(route('loginPage'))->with('success','Logout Berhasil');
+        return redirect(route('loginPage'))->with('success', 'Logout Berhasil');
     }
 
     public function block()

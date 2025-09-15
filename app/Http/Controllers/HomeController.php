@@ -573,4 +573,11 @@ class HomeController extends Controller
             ]);
         }
     }
+
+    public function landing()
+    {
+        return view('page.landing', [
+            'title' => 'Home',
+        ]);
+    }
 }

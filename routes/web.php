@@ -27,7 +27,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'landing'])->name('landing');
+    Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::middleware('hakakses:1')->group(function () {
@@ -150,8 +151,8 @@ Route::middleware('auth')->group(function () {
         Route::post('upload-arsip', [PeminjamanController::class, 'uploadArsip'])->name('uploadArsip');
 
         Route::get('hapus-watermark/{id_peminjaman}', [PeminjamanController::class, 'hapusWatermark'])->name('hapusWatermark');
-        
-        Route::get('printListPengembalian', [PeminjamanController::class,'printListPengembalian'])->name('printListPengembalian');
+
+        Route::get('printListPengembalian', [PeminjamanController::class, 'printListPengembalian'])->name('printListPengembalian');
         //endpeminjaman
     });
 
