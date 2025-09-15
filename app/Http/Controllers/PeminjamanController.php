@@ -876,10 +876,17 @@ class PeminjamanController extends Controller
     }
 
 
-    public function printListPengembalian(){
+    public function printListPengembalian()
+    {
         return view('peminjaman.printListPengembalian', [
-                'pengajuan' => Peminjaman::where('user_id', Auth::id())->where('jenis_history','pengembalian')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
-            ]);
+            'pengajuan' => Peminjaman::where('user_id', Auth::id())->where('jenis_history', 'pengembalian')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
+        ]);
     }
 
+    public function getDetailDashboard(Request $request)
+    {
+        return view('page.getDetailDashboard', [
+            'dashboard' => Peminjaman::select('peminjaman.*')->selectRaw("COUNT(id) as jml")->where('jenis_history', $request->jenis_history)->where('seksi_id', Auth::user()->seksi_id)->groupBy('jenis_arsip')->get(),
+        ])->render();
+    }
 }

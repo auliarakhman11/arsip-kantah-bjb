@@ -6,23 +6,23 @@
         }
 
         /* .blink {
-                                animation: blink 1s steps(1, end) infinite;
-                            } */
+                                    animation: blink 1s steps(1, end) infinite;
+                                } */
 
         /* @keyframes blink {
-                                0% {
-                                    background-color: red;
-                                    color: white;
-                                }
+                                    0% {
+                                        background-color: red;
+                                        color: white;
+                                    }
 
-                                50% {
-                                    background-color: orange;
-                                }
+                                    50% {
+                                        background-color: orange;
+                                    }
 
-                                100% {
-                                    background-color: yellow;
-                                }
-                            } */
+                                    100% {
+                                        background-color: yellow;
+                                    }
+                                } */
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -69,7 +69,8 @@
                                     <div class="card-header">
                                         <h4 class="float-left">Peminjaman</h4>
                                         <a href="{{ route('printListPengembalian') }}"
-                                            class="btn btn-sm btn-info float-right ml-2" target="_blank"><i class="fas fa-print"></i> List Pengembalian</a>
+                                            class="btn btn-sm btn-info float-right ml-2" target="_blank"><i
+                                                class="fas fa-print"></i> List Pengembalian</a>
                                         {{-- <a href="#modal-print" data-toggle="modal"
                                             class="btn btn-sm btn-info float-right"><i class="fas fa-print"></i> Print</a> --}}
                                     </div>
@@ -325,6 +326,29 @@
             </div>
         </div>
     </form>
+
+
+    <div class="modal fade" id="modal_detail_dashboard" role="dialog" aria-labelledby="modal_detail_dashboard"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="modal_detail_dashboard">Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="table_detail_dashboard">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 @section('script')
@@ -758,6 +782,29 @@
 
                     });
                 }
+
+            });
+
+
+            $(document).on('click', '.detail_dashboard', function() {
+                var jenis_history = $(this).attr('jenis_history');
+
+                $('#table_detail_dashboard').html(
+                    'Loading... <div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>'
+                );
+
+                $.ajax({
+                    url: "{{ route('getDetailDashboard') }}",
+                    method: "GET",
+                    data: {
+                        jenis_history: jenis_history
+                    },
+                    success: function(data) {
+                        $('#table_detail_dashboard').html(data);
+
+                    }
+
+                });
 
             });
 

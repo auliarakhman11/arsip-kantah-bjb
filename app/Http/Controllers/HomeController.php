@@ -580,4 +580,11 @@ class HomeController extends Controller
             'title' => 'Home',
         ]);
     }
+
+    public function getDetailDashboardGlobal(Request $request)
+    {
+        return view('page.getDetailDashboard', [
+            'dashboard' => Peminjaman::select('peminjaman.*')->selectRaw("COUNT(id) as jml")->where('jenis_history', $request->jenis_history)->groupBy('jenis_arsip')->get(),
+        ])->render();
+    }
 }

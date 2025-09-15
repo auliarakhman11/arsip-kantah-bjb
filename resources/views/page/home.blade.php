@@ -502,6 +502,28 @@
         </div>
     </form>
 
+    <div class="modal fade" id="modal_detail_dashboard" role="dialog" aria-labelledby="modal_detail_dashboard"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="modal_detail_dashboard">Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="table_detail_dashboard">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 @section('script')
@@ -1287,6 +1309,28 @@
                     },
                     success: function(data) {
                         $('#table_get_list').html(data);
+
+                    }
+
+                });
+
+            });
+
+            $(document).on('click', '.detail_dashboard', function() {
+                var jenis_history = $(this).attr('jenis_history');
+
+                $('#table_detail_dashboard').html(
+                    'Loading... <div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>'
+                );
+
+                $.ajax({
+                    url: "{{ route('getDetailDashboardGlobal') }}",
+                    method: "GET",
+                    data: {
+                        jenis_history: jenis_history
+                    },
+                    success: function(data) {
+                        $('#table_detail_dashboard').html(data);
 
                     }
 

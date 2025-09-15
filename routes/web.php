@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('getDetailDashboardGlobal', [HomeController::class, 'getDetailDashboardGlobal'])->name('getDetailDashboardGlobal');
+    Route::get('getDetailDashboard', [PeminjamanController::class, 'getDetailDashboard'])->name('getDetailDashboard');
+
     Route::middleware('hakakses:1')->group(function () {
         //kecamatan Kelurahan
         Route::get('kecamatan-kelurahan', [KecamatanKelurahanController::class, 'index'])->name('kecamatanKelurahan');
