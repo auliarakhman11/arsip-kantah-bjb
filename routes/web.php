@@ -156,6 +156,8 @@ Route::middleware('auth')->group(function () {
         Route::get('hapus-watermark/{id_peminjaman}', [PeminjamanController::class, 'hapusWatermark'])->name('hapusWatermark');
 
         Route::get('printListPengembalian', [PeminjamanController::class, 'printListPengembalian'])->name('printListPengembalian');
+        
+        Route::get('updateBon/{id_peminjaman}', [PeminjamanController::class,'updateBon'])->name('updateBon');
         //endpeminjaman
     });
 
@@ -198,6 +200,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('getListPengajuanTable', [HomeController::class, 'getListPengajuanTable'])->name('getListPengajuanTable');
     Route::get('printGetListPengajuan', [HomeController::class, 'printGetListPengajuan'])->name('printGetListPengajuan');
+    
+    Route::get('getUpdateBon', [HomeController::class,'getUpdateBon'])->name('getUpdateBon');
+    Route::post('terimaUpdateBon', [HomeController::class,'terimaUpdateBon'])->name('terimaUpdateBon');
+    Route::post('tidakUpdateBon', [HomeController::class,'tidakUpdateBon'])->name('tidakUpdateBon');
     //endarsip
 
     Route::middleware('hakakses:1,2,3,5,6,7')->group(function () {

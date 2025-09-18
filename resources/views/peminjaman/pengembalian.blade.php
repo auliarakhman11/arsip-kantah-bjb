@@ -809,6 +809,18 @@
             });
 
 
+            $(document).on('click', '.btn_update_bon', function() {
+                var id_peminjaman = $(this).attr('id_peminjaman');
+
+                if (confirm("Apakah anda yakin ingin update bon?") == true) {
+                    $.get('updateBon/' + id_peminjaman, function(data) {
+                        getPeminjaman();
+                    });
+                } 
+
+            });
+
+
 
         });
     </script>

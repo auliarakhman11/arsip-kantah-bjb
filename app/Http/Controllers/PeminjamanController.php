@@ -309,14 +309,17 @@ class PeminjamanController extends Controller
                 'peminjaman.id',
                 '=',
                 'dt_keterangan.id'
-            )->where('user_id', Auth::id())->whereIn('jenis_history', ['pengajuan', 'kirim'])->orderBy('jenis_history', 'ASC')->orderBy('id', 'DESC')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak', 'user', 'ba']);
+            )->where('user_id', Auth::id())->whereIn('jenis_history', ['pengajuan', 'kirim','update bon'])->orderBy('jenis_history', 'ASC')->orderBy('id', 'DESC')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak', 'user', 'ba']);
 
         return datatables()->of($pengajuan)
             ->addColumn('action', function ($data) {
                 if ($data->jenis_history == 'kirim') {
                     return '<a href="#modal_terima_kirim" class="btn btn-xs btn-success terima_kirim" data-toggle="modal" id_peminjaman="' . $data->id . '"><i class="fas fa-check-square"></i> Arsip dikirim</a>';
-                } else {
+                } elseif($data->jenis_history == 'pengajuan'){
                     return '<a href="#modal_batal_pengajuan" class="btn btn-xs btn-danger batal_pengajuan" data-toggle="modal" id_peminjaman="' . $data->id . '">Batalkan Pengajuan</a>';
+                }
+                 else {
+                    return 'Update Bon';
                 }
             })
             // ->addColumn('search', function($data){
@@ -415,7 +418,7 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::query()->select('peminjaman.*')->selectRaw("dt_keterangan.ket, CONCAT(dt_keterangan.waktu,' <br>',dt_keterangan.hari,' Hari') as waktu ,dt_keterangan.hari")
             ->leftJoin(
-                DB::raw("(SELECT id, IF(ba_id AND (jenis_arsip = 'BT' OR jenis_arsip = 'SU'), CONCAT( IF((IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) )) IS NOT NULL, IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) ) ,'') ,' (Foto Coppy)'), IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) ) ) as ket , DATE_FORMAT(peminjaman.updated_at, '%d %M %Y %H:%i') as waktu, datediff(current_date(), created_at) as hari FROM peminjaman) dt_keterangan"),
+                DB::raw("(SELECT id, IF(ba_id AND (jenis_arsip = 'BT' OR jenis_arsip = 'SU'), CONCAT( IF((IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) )) IS NOT NULL, IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) ) ,'') ,' (Foto Coppy)'), IF(keterangan2 = '' OR keterangan2 IS NULL, keterangan, IF(keterangan IS NOT NULL OR keterangan != '',  CONCAT(keterangan,'<br>',keterangan2),keterangan2) ) ) as ket , DATE_FORMAT(peminjaman.updated_at, '%d %M %Y %H:%i') as waktu, datediff(current_date(), updated_at) as hari FROM peminjaman) dt_keterangan"),
                 'peminjaman.id',
                 '=',
                 'dt_keterangan.id'
@@ -448,6 +451,10 @@ class PeminjamanController extends Controller
                         } else {
                             $button .= ' <a href="#modal_upload_arsip" data-toggle="modal" class="mt-2 upload_arsip btn btn-xs btn-success" id_peminjaman="' . $data->id . '"><i class="fas fa-file-upload"></i> Upload</a>';
                         }
+                    }
+
+                    if ($data->hari > 7) {
+                        $button .= ' <a href="javascript:void(0)" class="mt-2 btn_update_bon btn btn-xs btn-secondary" id_peminjaman="' . $data->id . '"><i class="fas fa-sync"></i> Update Bon</a>';
                     }
 
                     return $button;
@@ -889,4 +896,25 @@ class PeminjamanController extends Controller
             'dashboard' => Peminjaman::select('peminjaman.*')->selectRaw("COUNT(id) as jml")->where('jenis_history', $request->jenis_history)->where('seksi_id', Auth::user()->seksi_id)->groupBy('jenis_arsip')->get(),
         ])->render();
     }
+
+    public function updateBon($id_peminjaman)
+    {
+        $peminjaman = Peminjaman::where('id', $id_peminjaman);
+        $dt_peminjaman = $peminjaman->first();
+        $peminjaman->update([
+            'jenis_history' => 'update bon',
+            'user_id' => Auth::user()->id,
+        ]);
+
+        HistroryPeminjaman::create([
+            'peminjaman_id' => $id_peminjaman,
+            'pelayanan_id' => $dt_peminjaman->pelayanan_id,
+            'seksi_id' => $dt_peminjaman->seksi_id,
+            'status' => 'update bon',
+            'user_id' => Auth::user()->id
+        ]);
+
+        return true;
+    }
+
 }

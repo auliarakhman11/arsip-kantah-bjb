@@ -73,6 +73,10 @@
                                     aria-controls="peminjaman" aria-selected="false">Peminjaman</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="nav_update_bon" data-toggle="tab" href="#update_bon" role="tab"
+                                    aria-controls="update_bon" aria-selected="false">Update Bon</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="nav_forward" data-toggle="tab" href="#forward" role="tab"
                                     aria-controls="forward" aria-selected="false">Forward</a>
                             </li>
@@ -213,6 +217,49 @@
                                 </div>
                             </div>
                             {{-- end peminjaman --}}
+
+                            {{-- update bon --}}
+                            <div class="tab-pane fade" id="update_bon" role="tabpanel" aria-labelledby="update_bon-tab">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Update Bon</h4>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-sm" width="100%" id="update_bon_table"
+                                                style="font-size: 13px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        {{-- <th width="0.1%"></th> --}}
+                                                        <th>No Berkas</th>
+                                                        <th>Seksi</th>
+                                                        <th>Kecamatan</th>
+                                                        <th>Kelurahan</th>
+                                                        <th>Pelayanan</th>
+                                                        <th>Tipe Hak</th>
+                                                        <th>No Hak</th>
+                                                        <th>Jenis Arsip</th>
+                                                        <th>Keterangan</th>
+                                                        <th>Waktu</th>
+                                                        <th>Status</th>
+                                                        <th>History</th>
+                                                        <th>User</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- end update bon --}}
 
                             {{-- forward --}}
                             <div class="tab-pane fade" id="forward" role="tabpanel" aria-labelledby="forward-tab">
@@ -523,6 +570,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal_update_bon" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title" id="exampleModalLabel">Terima Update Bon</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Apakah anda yakin ingin melakukan update bon?</h4>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <form id="form-tidak-update-bon" class="d-inline-block">
+                            <input type="hidden" name="id_peminjaman" class="id_peminjaman_update_bon">
+                            <button type="submit" class="btn btn-warning" id="btn-tidak-update-bon">Tidak</button>
+                        </form>
+
+                        <form id="form-update-bon" class="d-inline-block">
+                            <input type="hidden" name="id_peminjaman" class="id_peminjaman_update_bon">
+                            <button type="submit" class="btn btn-primary" id="btn-update-bon">Terima</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -1337,6 +1415,179 @@
                 });
 
             });
+
+
+            //update bon
+
+            $('#update_bon_table').DataTable({
+                processing: true,
+                serverSide: true, //aktifkan server-side 
+                ajax: {
+                    url: "{{ route('getUpdateBon') }}",
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    // {
+                    //     data: 'search',
+                    //     name: 'search'
+                    // },
+                    {
+                        data: 'no_berkas',
+                        name: 'no_berkas'
+                    },
+                    {
+                        data: 'seksi.nm_seksi',
+                        name: 'seksi.nm_seksi'
+                    },
+                    {
+                        data: 'kecamatan.nm_kecamatan',
+                        name: 'kecamatan.nm_kecamatan'
+                    },
+                    {
+                        data: 'kelurahan.nm_kelurahan',
+                        name: 'kelurahan.nm_kelurahan'
+                    },
+                    {
+                        data: 'pelayanan.nm_pelayanan',
+                        name: 'pelayanan.nm_pelayanan'
+                    },
+                    {
+                        data: 'hak.nm_hak',
+                        name: 'hak.nm_hak'
+                    },
+                    {
+                        data: 'no_hak',
+                        name: 'no_hak'
+                    },
+                    {
+                        data: 'jenis_arsip',
+                        name: 'jenis_arsip'
+                    },
+                    {
+                        data: 'ket',
+                        name: 'dt_keterangan.ket'
+                    },
+                    {
+                        data: 'waktu',
+                        name: 'dt_keterangan.waktu'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'history',
+                        name: 'history'
+                    },
+                    {
+                        data: 'user.name',
+                        name: 'user.name'
+                    },
+                ],
+                order: [],
+                columnDefs: [{
+                        "targets": 0,
+                        "orderable": false
+                    },
+                    {
+                        "searchable": false,
+                        "targets": 0
+                    }
+                ],
+
+            });
+
+            function getListUpdateBon() {
+                var oTable = $('#update_bon_table').dataTable(); //inialisasi datatable
+                oTable.fnDraw(false); //reset datatable
+            }
+
+            $(document).on('click', '#nav_update_bon', function() {
+                getListUpdateBon();
+            });
+
+            $(document).on('click', '.terima_update_bon', function() {
+                var id_peminjaman = $(this).attr('id_peminjaman');
+                $('.id_peminjaman_update_bon').val(id_peminjaman);
+            });
+
+            $(document).on('submit', '#form-tidak-update-bon', function(event) {
+                event.preventDefault();
+                $('#btn-update-bon').attr('disabled', true);
+                $('#btn-update-bon').html('Loading..');
+
+                $('#btn-tidak-update-bon').attr('disabled', true);
+                $('#btn-tidak-update-bon').html('Loading..');
+                $.ajax({
+                    url: "{{ route('tidakUpdateBon') }}",
+                    method: 'POST',
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $('#modal_update_bon').modal('hide'); //modal hide
+                        $("#btn-update-bon").removeAttr("disabled");
+                        $('#btn-update-bon').html('Terima'); //tombol
+
+                        $("#btn-tidak-update-bon").removeAttr("disabled");
+                        $('#btn-tidak-update-bon').html('Tidak'); //tombol
+                        getListUpdateBon();
+                        getDashboardGlobal();
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            icon: 'success',
+                            title: 'Berkas diterima'
+                        });
+
+                    }
+                });
+
+            });
+
+
+            $(document).on('submit', '#form-update-bon', function(event) {
+                event.preventDefault();
+                $('#btn-update-bon').attr('disabled', true);
+                $('#btn-update-bon').html('Loading..');
+
+                $('#btn-tidak-update-bon').attr('disabled', true);
+                $('#btn-tidak-update-bon').html('Loading..');
+                $.ajax({
+                    url: "{{ route('terimaUpdateBon') }}",
+                    method: 'POST',
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $('#modal_update_bon').modal('hide'); //modal hide
+                        $("#btn-update-bon").removeAttr("disabled");
+                        $('#btn-update-bon').html('Terima'); //tombol
+
+                        $("#btn-tidak-update-bon").removeAttr("disabled");
+                        $('#btn-tidak-update-bon').html('Tidak'); //tombol
+                        getListUpdateBon();
+                        getDashboardGlobal();
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            icon: 'success',
+                            title: 'Berkas diterima'
+                        });
+
+                    }
+                });
+
+            });
+
+            //end update bon
 
 
         });
