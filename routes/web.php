@@ -158,6 +158,9 @@ Route::middleware('auth')->group(function () {
         Route::get('printListPengembalian', [PeminjamanController::class, 'printListPengembalian'])->name('printListPengembalian');
         
         Route::get('updateBon/{id_peminjaman}', [PeminjamanController::class,'updateBon'])->name('updateBon');
+        
+        Route::get('getListDtPengembalian',[PeminjamanController::class,'getListDtPengembalian'])->name('getListDtPengembalian');
+        Route::get('printGetDtPengembalian',[PeminjamanController::class,'printGetDtPengembalian'])->name('printGetDtPengembalian');
         //endpeminjaman
     });
 

@@ -917,4 +917,26 @@ class PeminjamanController extends Controller
         return true;
     }
 
+    public function getListDtPengembalian(){
+        return view('peminjaman.getListPengembalian', [
+            'pengajuan' => Peminjaman::where('user_id', Auth::id())->where('jenis_history', 'pengembalian')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
+        ])->render();
+    }
+
+    public function printGetDtPengembalian(Request $request)
+    {
+        $id_peminjaman = $request->id_peminjaman;
+
+        if ($id_peminjaman) {
+
+            return view('peminjaman.printListPengembalian', [
+                'pengajuan' => Peminjaman::whereIn('id', $id_peminjaman)->where('user_id', Auth::id())->where('jenis_history', 'pengembalian')->with(['kecamatan', 'kelurahan', 'pelayanan', 'hak'])->get(),
+            ]);
+        } else {
+            return view('peminjaman.printListPengembalian', [
+                'pengajuan' => [],
+            ]);
+        }
+    }
+
 }

@@ -68,9 +68,10 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="float-left">Peminjaman</h4>
-                                        <a href="{{ route('printListPengembalian') }}"
+                                        <a href="#modal_pilih_pengembalian" data-toggle="modal" class="btn btn-sm btn-info float-right ml-2" id="btn_pilih_pengembalian"><i class="fas fa-print"></i> List Pengembalian</a>
+                                        {{-- <a href="{{ route('printListPengembalian') }}"
                                             class="btn btn-sm btn-info float-right ml-2" target="_blank"><i
-                                                class="fas fa-print"></i> List Pengembalian</a>
+                                                class="fas fa-print"></i> List Pengembalian</a> --}}
                                         {{-- <a href="#modal-print" data-toggle="modal"
                                             class="btn btn-sm btn-info float-right"><i class="fas fa-print"></i> Print</a> --}}
                                     </div>
@@ -349,6 +350,31 @@
             </div>
         </div>
     </div>
+
+    <form action="{{ route('printGetDtPengembalian') }}" method="get">
+        <div class="modal fade" id="modal_pilih_pengembalian" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title" id="exampleModalLabel">List Pengajuan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="table_get_list">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-batal-pengajuan">Print</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
 
 @section('script')
@@ -817,6 +843,24 @@
                         getPeminjaman();
                     });
                 } 
+
+            });
+
+            $(document).on('click', '#btn_pilih_pengembalian', function() {
+
+                $('#table_get_list').html(
+                    'Loading... <div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>'
+                );
+
+                $.ajax({
+                    url: "{{ route('getListDtPengembalian') }}",
+                    method: "GET",
+                    success: function(data) {
+                        $('#table_get_list').html(data);
+
+                    }
+
+                });
 
             });
 
