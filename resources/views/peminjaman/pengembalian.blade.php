@@ -54,6 +54,10 @@
                                     role="tab" aria-controls="peminjaman" aria-selected="true">Peminjaman</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="nav_forward" data-toggle="tab" href="#forward"
+                                    role="tab" aria-controls="forward" aria-selected="false">Forward</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="nav_selesai" data-toggle="tab" href="#selesai" role="tab"
                                     aria-controls="selesai" aria-selected="false">Selesai</a>
                             </li>
@@ -105,6 +109,47 @@
                                 </div>
                             </div>
                             {{-- end peminjaman --}}
+
+                            {{-- forward --}}
+                            <div class="tab-pane fade" id="forward" role="tabpanel" aria-labelledby="forward-tab">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Forward</h4>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-sm" width="100%" id="forward_table"
+                                                style="font-size: 13px;">
+                                                <thead>
+                                                     <tr>
+                                                        <th>#</th>
+                                                        {{-- <th width="0.1%"></th> --}}
+                                                        <th>Kecamatan</th>
+                                                        <th>Kelurahan</th>
+                                                        <th>No Berkas</th>
+                                                        <th>Tipe Hak</th>
+                                                        <th>No Hak</th>
+                                                        <th>Jenis</th>
+                                                        <th>Pelayanan</th>
+                                                        <th>Keterangan</th>
+                                                        <th>Waktu</th>
+                                                        <th>Status</th>
+                                                        <th>History</th>
+                                                        <th>User</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- end forward --}}
 
                             {{-- selesai --}}
                             <div class="tab-pane fade" id="selesai" role="tabpanel" aria-labelledby="selesai-tab">
@@ -582,7 +627,7 @@
 
                         $("#btn_tidak_forward").removeAttr("disabled");
                         $('#btn_tidak_forward').html('Tidak'); //tombol
-                        getPeminjaman();
+                        getForward();
                         getDashboard();
                         Swal.fire({
                             toast: true,
@@ -618,7 +663,7 @@
 
                         $("#btn_tidak_forward").removeAttr("disabled");
                         $('#btn_tidak_forward').html('Tidak'); //tombol
-                        getPeminjaman();
+                        getForward();
                         getDashboard();
                         Swal.fire({
                             toast: true,
@@ -863,6 +908,94 @@
                 });
 
             });
+
+            //forward
+            $('#forward_table').DataTable({
+                processing: true,
+                serverSide: true, //aktifkan server-side 
+                ajax: {
+                    url: "{{ route('getForward') }}",
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    // {
+                    //     data: 'search',
+                    //     name: 'search'
+                    // },
+                    {
+                        data: 'kecamatan.nm_kecamatan',
+                        name: 'kecamatan.nm_kecamatan'
+                    },
+                    {
+                        data: 'kelurahan.nm_kelurahan',
+                        name: 'kelurahan.nm_kelurahan'
+                    },
+                    {
+                        data: 'no_berkas',
+                        name: 'no_berkas'
+                    },
+                    {
+                        data: 'hak.nm_hak',
+                        name: 'hak.nm_hak'
+                    },
+                    {
+                        data: 'no_hak',
+                        name: 'no_hak'
+                    },
+                    {
+                        data: 'jenis_arsip',
+                        name: 'jenis_arsip'
+                    },
+                    {
+                        data: 'pelayanan.nm_pelayanan',
+                        name: 'pelayanan.nm_pelayanan'
+                    },
+                    {
+                        data: 'ket',
+                        name: 'dt_keterangan.ket'
+                    },
+                    {
+                        data: 'waktu',
+                        name: 'dt_keterangan.waktu'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'history',
+                        name: 'history'
+                    },
+                    {
+                        data: 'user.name',
+                        name: 'user.name'
+                    },
+                ],
+                order: [],
+                columnDefs: [{
+                        "targets": 0,
+                        "orderable": false
+                    },
+                    {
+                        "searchable": false,
+                        "targets": 0
+                    }
+                ],
+            });
+
+            function getForward() {
+                var aTable = $('#forward_table').dataTable(); //inialisasi datatable
+                aTable.fnDraw(false); //reset datatable
+            }
+
+            $(document).on('click', '#nav_forward', function() {
+                getForward();
+            });
+            
+            //endforward
 
 
 

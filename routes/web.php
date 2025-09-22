@@ -127,6 +127,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('get-peminjaman', [PeminjamanController::class, 'getPeminjaman'])->name('getPeminjaman');
 
+        Route::get('getForward',[PeminjamanController::class,'getForward'])->name('getForward');
+
         Route::post('kembalikan-berkas', [PeminjamanController::class, 'kembalikanBerkas'])->name('kembalikanBerkas');
 
         Route::get('get-selesai', [PeminjamanController::class, 'getSelesai'])->name('getSelesai');
